@@ -26,6 +26,8 @@
     "quill": "^2.0.3",
     "quill-cursors": "^4.0.4",
     "socket.io": "^4.8.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "y-protocols": "^1.0.6",
     "y-quill": "^1.0.0",
     "yjs": "^13.6.27"

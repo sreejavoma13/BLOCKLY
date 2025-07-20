@@ -14,6 +14,7 @@ import * as Y from 'yjs';
 import axios from "axios";
 import cors from "cors";
 import bodyParser from "body-parser";
+import swaggerSetup from './swagger.js';
 
 const app=express()
 app.use(bodyParser.json());
@@ -44,6 +45,8 @@ app.use("/api/trash", trashRoutes);
 app.use("/api/share", shareRoutes);
 app.use("/api",checkRoutes)
 app.use("/api",coPagesRoutes)
+
+swaggerSetup(app);
 
 app.post("/gemini", async (req, res) => {
   try {
