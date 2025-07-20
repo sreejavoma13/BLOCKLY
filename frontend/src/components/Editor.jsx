@@ -31,7 +31,7 @@ export default function Editor({ content, onContentChange,readOnly=false }) {
   if (!editor) return <div>Loading editor...</div>;
 
   return (
-    <div className="p-4">
+    <div className="p-4 min-h-screen">
       <BlockNoteView
         editor={editor}
         theme="dark"
