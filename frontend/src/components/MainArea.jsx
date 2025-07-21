@@ -11,7 +11,7 @@ import { Share, Save } from "lucide-react";
 import Editor from "./Editor";
 import ShareModal from "./ShareModal";
 import { useTheme } from "../contexts/ThemeContext.jsx";
-import { MessageCircle,Bookmark} from "lucide-react";
+import { MessageCircle,Bookmark,Lock} from "lucide-react";
 import CommentBox from "./CommentBox";
 import GeminiChatbot from "./GeminiChatbot";
 import axios from "axios";
@@ -28,6 +28,9 @@ const MainArea = () => {
   const [showSavePopup, setShowSavePopup] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showEditAuthPopup, setShowEditAuthPopup] = useState(false);
+  const [editAccessGranted, setEditAccessGranted] = useState(false);
+  const [authError, setAuthError] = useState("");
 
   const activePageId = useSelector((state) => state.pages.activePageId);
   const page = useSelector((state) =>
@@ -36,7 +39,7 @@ const MainArea = () => {
   const { user } = useSelector((state) => state.user);
   const userid = user?.userId;
   const access = searchParams.get("access"); // view or edit
-  const isEditable = (!access || access === "edit") && user;
+  const isEditable = (!access || access === "edit")  && user ;
   const [titleInput, setTitleInput] = useState(page?.title || "");
 
   useEffect(() => {
@@ -53,6 +56,12 @@ const MainArea = () => {
   useEffect(() => {
     setTitleInput(page?.title || "");
   }, [page?.title]);
+
+  useEffect(() => {
+    if (access === "edit") {
+      setShowEditAuthPopup(true);
+    }
+  }, [access]);
 
   const handleTitleChange = (e) => setTitleInput(e.target.value);
 
@@ -97,12 +106,12 @@ const MainArea = () => {
         const response = await axios.post("/api/pages/saveToUser", {
           sourceUserId: userid, // current user's ID as source
           email,                // target user's email
-          password,             // target user's password (optional – depends on your backend auth)
+          password,             // target user's password
           pageId: page.id,      // the page to save
         });
 
         console.log("Save successful:", response.data);
-        alert("Page saved to your profile successfully!");
+        toast.success("Page saved to your profile successfully!");
 
         setShowSavePopup(false); // Close popup
         setEmail("");            // Reset form
@@ -112,6 +121,31 @@ const MainArea = () => {
         alert("Failed to save page to profile. Try again!");
       }
   };
+
+  const handleEditAuthSubmit = async (e) => {
+    e.preventDefault();
+    setAuthError("");
+    try {
+      const res = await axios.post("/api/check-user", {
+        email,
+        password,
+      });
+      if (res.data.success) {
+        toast.success("Access granted!");
+        setEditAccessGranted(true);
+        setShowEditAuthPopup(false);
+        setEmail("");
+        setPassword("");
+      } else {
+        setAuthError("Invalid credentials. Try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setAuthError("Login failed. Please check your email and password.");
+    }
+  };
+
+
 
   if (!page) return <div className="p-4">Loading page...</div>;
 
@@ -246,6 +280,61 @@ const MainArea = () => {
                 className="w-full py-2 rounded bg-purple-500 text-white hover:bg-purple-600"
               >
                 Save
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Access Auth Popup */}
+      {showEditAuthPopup && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          onClick={() => navigate(-1)}
+        >
+          <div
+            className={`p-5 rounded shadow-lg w-96 ${
+              darkMode ? "bg-gray-800 text-gray-100" : "bg-white text-gray-900"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-bold mb-4 flex items-center">
+              <Lock size={18} className="mr-2" />
+              Authentication Required
+            </h3>
+            <form onSubmit={handleEditAuthSubmit} className="space-y-3">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className={`w-full p-2 border rounded ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-gray-100"
+                    : "bg-gray-100 border-gray-300 text-gray-900"
+                }`}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className={`w-full p-2 border rounded ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-gray-100"
+                    : "bg-gray-100 border-gray-300 text-gray-900"
+                }`}
+              />
+              {authError && (
+                <p className="text-red-500 text-sm">{authError}</p>
+              )}
+              <button
+                type="submit"
+                className="w-full py-2 rounded bg-purple-500 text-white hover:bg-purple-600"
+              >
+                Verify & Continue
               </button>
             </form>
           </div>
