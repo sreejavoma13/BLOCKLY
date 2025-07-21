@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext.jsx';
 import img6 from '../assets/Screenshot6.png'
 import { ChevronLeft } from "lucide-react";
+import { toast } from 'react-hot-toast';
 
 function Signup() {
     console.log(" Signup component loaded");
