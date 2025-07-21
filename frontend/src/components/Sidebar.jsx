@@ -136,7 +136,7 @@ const Sidebar = () => {
         {/* Pages */}
         <div>
           {!collapsed && <h2 className="font-bold text-md mb-2">PAGES📄</h2>}
-          <div className="overflow-y-auto max-h-[calc(100vh-250px)] pr-2">
+          <div className="overflow-y-auto max-h-[calc(100vh-350px)] pr-2">
             {!collapsed && filteredPages.map((page) => (
               <PageItem key={page.id} page={page} level={0} />
             ))}

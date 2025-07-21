@@ -34,26 +34,27 @@ const Dashboard = () => {
   }, [navigate]);
 
   return (
-    <div  key={darkMode} className={`${darkMode ? 'dark' : ''}`}>
-      <div className="flex h-screen bg-gray-300 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-        <Sidebar />
-        <div className="flex-1 flex flex-col">
-          <Topbar />
-          <div className="flex-1 overflow-auto">
-            {activePageId ? (
-              // Show MainArea when page selected
-              <MainArea />
-            ) : (
-              // Show welcome by default
-              <div className="p-4 flex flex-col justify-center items-center">
-                <h1 className="text-2xl font-bold">{welcomeMessage}</h1>
-                <p>Select a page or create a new one to get started.</p>
-              </div>
-            )}
+    <div
+    
+    className={`flex h-screen ${
+      darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-gray-800"
+    }`}
+  >
+    <Sidebar />
+    <div className="flex-1 flex flex-col">
+      <Topbar />
+      <div className="flex-1 overflow-auto">
+        {activePageId ? (
+          <MainArea />
+        ) : (
+          <div className="p-4 flex flex-col justify-center items-center">
+            <h1 className="text-2xl font-bold">{welcomeMessage}</h1>
+            <p>Select a page or create a new one to get started.</p>
           </div>
-        </div>
+        )}
       </div>
     </div>
+  </div>
   );
 };
 
