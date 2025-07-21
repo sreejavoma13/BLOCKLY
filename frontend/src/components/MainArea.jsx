@@ -241,7 +241,7 @@ const MainArea = () => {
               />
               <button
                 type="submit"
-                className="w-full py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+                className="w-full py-2 rounded bg-purple-500 text-white hover:bg-purple-600"
               >
                 Save
               </button>
