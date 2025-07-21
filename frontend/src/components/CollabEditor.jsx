@@ -224,7 +224,7 @@ export default function App() {
     <div
       className={`flex rounded-lg shadow-lg overflow-hidden w-full max-w-4xl`}
     >
-      {/* Left Side - Image */}
+      {/* Left Side */}
       <div
         className={`hidden md:flex flex-1 items-center justify-center p-4 ${
           darkMode ? "bg-gray-800" : "bg-gray-200"
@@ -237,7 +237,7 @@ export default function App() {
         />
       </div>
 
-      {/* Right Side - Form */}
+      {/* Right Side*/}
       <div
         className={`flex-1 p-8 ${
           darkMode ? "bg-gray-800 text-gray-100" : "bg-white text-gray-900"
@@ -257,17 +257,6 @@ export default function App() {
             required
           />
           <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className={`w-full px-4 py-2 rounded border focus:outline-none focus:ring-2 ${
-              darkMode
-                ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-orange-500"
-                : "bg-gray-100 border-gray-300 text-gray-900 focus:ring-orange-400"
-            }`}
-            required
-          />
-          <input
             type="email"
             name="email"
             placeholder="Email"
@@ -275,6 +264,17 @@ export default function App() {
               darkMode
                 ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-purple-500"
                 : "bg-gray-100 border-gray-300 text-gray-900 focus:ring-purple-400"
+            }`}
+            required
+          />
+            <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className={`w-full px-4 py-2 rounded border focus:outline-none focus:ring-2 ${
+              darkMode
+                ? "bg-gray-700 border-gray-600 text-gray-100 focus:ring-orange-500"
+                : "bg-gray-100 border-gray-300 text-gray-900 focus:ring-orange-400"
             }`}
             required
           />
