@@ -26,17 +26,7 @@ export const displayPages = async (userId) => {
     const pagesRef = getPagesRef(userId);
     const snapshot = await pagesRef.where("user", "==", userId).get();
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    // const ownedPagesQuery = pagesRef.where('user', '==', userId);
-    // const sharedPagesQuery = pagesRef.where('sharedEditors', 'array-contains', userId);
-    //  const [ownedPagesSnap, sharedPagesSnap] = await Promise.all([
-    //   ownedPagesQuery.get(),
-    //   sharedPagesQuery.get()
-    // ]);
-    // const ownedPages = ownedPagesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    // const sharedPages = sharedPagesSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    // const allPages = [...ownedPages, ...sharedPages];
-    // const uniquePages = Array.from(new Map(allPages.map(p => [p.id, p])).values());
-    // res.json(uniquePages);
+   
 };
 // Display favorite Pages (for a user)
 export const displayfavPages = async (userId) => {

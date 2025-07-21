@@ -21,9 +21,9 @@
 }
 
 button, input {
-  border: none;           /* removes default border */
-  outline: none;          /* removes focus outline */
-  box-shadow: none;       /* removes focus glow */
+  border: none;           
+  outline: none;          
+  box-shadow: none;     
 }
 
 .ql-toolbar.ql-snow {

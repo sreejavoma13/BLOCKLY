@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  user: null,      // Stores logged-in user object
-  loading: false,  // For async calls
-  error: null,     // Any error messages
+  user: null,    
+  loading: false,  
+  error: null,     
 };
 
 // ✅ Async thunk to log in user
@@ -17,7 +17,7 @@ export const loginUser = createAsyncThunk(
         { email, password },
         { withCredentials: true } // important for cookies
       );
-      return response.data; // assuming API returns { user }
+      return response.data; 
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -33,7 +33,7 @@ export const fetchCurrentUser = createAsyncThunk(
         "http://localhost:5000/api/auth/me",
         { withCredentials: true }
       );
-      return response.data; // assuming API returns { user }
+      return response.data; 
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }

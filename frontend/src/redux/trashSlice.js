@@ -7,7 +7,7 @@ export const emptyTrash = createAsyncThunk(
   async ({userid}, thunkAPI) => {
     try {
       const res = await axios.delete(`http://localhost:5000/api/trash/${userid}`, {
-        withCredentials: true, // if you’re using cookies for auth
+        withCredentials: true, 
       });
       return res.data.message; // "Trash emptied successfully" or similar
     } catch (err) {

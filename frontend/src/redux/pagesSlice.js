@@ -6,11 +6,11 @@ const API_URL = 'http://localhost:5000/api/pages/pages';
 
 // Async thunks
 const initialState = {
-  pages: [],       // Flat list of all pages
+  pages: [],     
   favorites: [],
   singlePage: null,
   activePageId: null,
-  status: 'idle',  // idle | loading | succeeded | failed
+  status: 'idle', 
   error: null,
 };
 // Fetch all pages for user
@@ -21,7 +21,7 @@ export const fetchPages = createAsyncThunk(
       const response = await axios.get(`${API_URL}/${userId}`, {
         withCredentials: true, //  Send cookies
       });
-      return response.data; // [{ id, title, parent, ... }]
+      return response.data; 
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data || error.message);
     }
@@ -33,9 +33,9 @@ export const fetchFavoritePages = createAsyncThunk(
   async ({ userId }, thunkAPI) => {
     try {
       const response = await axios.get(`${API_URL}/fav/${userId}`, {
-        withCredentials: true, // 👈 Send cookies
+        withCredentials: true, // Send cookies
       });
-      return response.data; // [{ id, title, ... }]
+      return response.data; 
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data || error.message);
     }
@@ -65,7 +65,7 @@ export const addPage = createAsyncThunk(
           withCredentials: true, // 👈 Send cookies
         }
       );
-      return response.data; // { id, title, parent, ... }
+      return response.data; 
     } catch (error) {
       console.log(error.response?.data);
       return thunkAPI.rejectWithValue(error.response?.data || error.message);
@@ -137,7 +137,7 @@ export const addUserAsEditor = createAsyncThunk(
   async ({ pageId, userId }, thunkAPI) => {
     try {
       const response = await axios.post(
-        `/api/pages/${pageId}/addEditor`, // Call backend route
+        `/api/pages/${pageId}/addEditor`, 
         { userId }
       );
       return response.data; // { message: "User added as editor" }

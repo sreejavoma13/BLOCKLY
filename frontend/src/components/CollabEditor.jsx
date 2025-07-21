@@ -21,8 +21,8 @@ export default function App() {
   const { darkMode, toggleDarkMode } = useTheme();
   const [user, setUser] = useState(null); // To hold username, email, room
   const editorRef = useRef(null);
-  const ydocRef = useRef(null);       // 🔥 Added
-  const ytextRef = useRef(null);      // 🔥 Added
+  const ydocRef = useRef(null);       
+  const ytextRef = useRef(null);      
   const [users, setUsers] = useState([]); // List of connected users
   const [savedPages, setSavedPages] = useState([]);
   const navigate = useNavigate();
@@ -83,7 +83,7 @@ export default function App() {
     const title = prompt("Enter a title for this page:");
     if (!title) return;
 
-    const content = ytextRef.current.toDelta(); // 🔥 FIXED: use ytextRef
+    const content = ytextRef.current.toDelta(); 
 
     try {
       const res = await fetch("http://localhost:5000/api/pages/save", {
@@ -113,9 +113,9 @@ export default function App() {
       const res = await fetch(`http://localhost:5000/api/pages/${user.email}/${pageId}`);
       const data = await res.json();
       if (data.success) {
-        const ytext = ytextRef.current; // 🔥 FIXED: use ytextRef
-        ytext.delete(0, ytext.length); // Clear current content
-        ytext.applyDelta(data.page.content); // Load saved content
+        const ytext = ytextRef.current; 
+        ytext.delete(0, ytext.length); 
+        ytext.applyDelta(data.page.content); 
       } else {
         alert("Failed to load page");
       }
@@ -151,8 +151,8 @@ export default function App() {
     const ydoc = new Y.Doc();
     const ytext = ydoc.getText("quill");
 
-    ydocRef.current = ydoc;   // 🔥 Store ydoc in ref
-    ytextRef.current = ytext; // 🔥 Store ytext in ref
+    ydocRef.current = ydoc;   
+    ytextRef.current = ytext; 
 
     const awareness = new Awareness(ydoc);
 

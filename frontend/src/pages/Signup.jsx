@@ -7,7 +7,7 @@ import img6 from '../assets/Screenshot6.png'
 import { ChevronLeft } from "lucide-react";
 
 function Signup() {
-    console.log("✅ Signup component loaded");
+    console.log(" Signup component loaded");
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +37,7 @@ function Signup() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                credentials: "include", // important for cookies
+                credentials: "include", 
                 body: JSON.stringify({ idToken,password })
             });
 

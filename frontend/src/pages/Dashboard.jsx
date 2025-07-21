@@ -50,6 +50,7 @@ const Dashboard = () => {
           <div className="p-4 flex flex-col justify-center items-center">
             <h1 className="text-2xl font-bold">{welcomeMessage}</h1>
             <p>Select a page or create a new one to get started.</p>
+            <p>Note:saved collab pages are avaliable inside collab</p>
           </div>
         )}
       </div>
