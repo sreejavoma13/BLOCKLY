@@ -11,9 +11,10 @@ import { Share, Save } from "lucide-react";
 import Editor from "./Editor";
 import ShareModal from "./ShareModal";
 import { useTheme } from "../contexts/ThemeContext.jsx";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle,Bookmark} from "lucide-react";
 import CommentBox from "./CommentBox";
 import GeminiChatbot from "./GeminiChatbot";
+import axios from "axios";
 
 const MainArea = () => {
   const { darkMode } = useTheme(); // Get dark mode
@@ -23,6 +24,9 @@ const MainArea = () => {
   const dispatch = useDispatch();
   const latestContentRef = useRef(null);
   const [showComments, setShowComments] = useState(false);
+  const [showSavePopup, setShowSavePopup] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const activePageId = useSelector((state) => state.pages.activePageId);
   const page = useSelector((state) =>
@@ -83,6 +87,30 @@ const MainArea = () => {
     );
   };
 
+  const handleBookmarkSubmit =async (e) => {
+    e.preventDefault();
+    if (!page || !email || !password) return;
+    try {
+    // POST to your backend API
+        const response = await axios.post("/api/pages/saveToUser", {
+          sourceUserId: userid, // current user's ID as source
+          email,                // target user's email
+          password,             // target user's password (optional – depends on your backend auth)
+          pageId: page.id,      // the page to save
+        });
+
+        console.log("Save successful:", response.data);
+        alert("Page saved to your profile successfully!");
+
+        setShowSavePopup(false); // Close popup
+        setEmail("");            // Reset form
+        setPassword("");
+      } catch (error) {
+        console.error("Error saving page:", error);
+        alert("Failed to save page to profile. Try again!");
+      }
+  };
+
   if (!page) return <div className="p-4">Loading page...</div>;
 
   return (
@@ -107,6 +135,13 @@ const MainArea = () => {
               size={20}
               className={`cursor-pointer mt-1`}
               onClick={() => setShowComments(true)}
+            />
+          )}
+          {(access==="edit")&& (
+            <Bookmark
+              size={20}
+              className={`cursor-pointer mt-1`}
+              onClick={() =>setShowSavePopup(true)}
             />
           )}
           {isEditable && (
@@ -167,6 +202,54 @@ const MainArea = () => {
           onClose={() => setShowComments(false)}
         />
       )}
+      {showSavePopup && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+          onClick={() => setShowSavePopup(false)}
+        >
+          <div
+            className={`p-4 rounded shadow-lg w-80 ${
+              darkMode ? "bg-gray-800 text-gray-100" : "bg-white text-gray-900"
+            }`}
+            onClick={(e) => e.stopPropagation()} // Prevent close on popup click
+          >
+            <h3 className="text-lg font-bold mb-2">Save to your profile</h3>
+            <form onSubmit={handleBookmarkSubmit} className="space-y-3">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className={`w-full p-2 border rounded ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-gray-100"
+                    : "bg-gray-100 border-gray-300 text-gray-900"
+                }`}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className={`w-full p-2 border rounded ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-gray-100"
+                    : "bg-gray-100 border-gray-300 text-gray-900"
+                }`}
+              />
+              <button
+                type="submit"
+                className="w-full py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+              >
+                Save
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

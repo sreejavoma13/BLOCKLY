@@ -1,4 +1,5 @@
 import { db, admin } from "../firebaseAdmin.js";
+import bcrypt from "bcryptjs";
 
 export const getPagesRef = (userId) => {
     return db.collection("users").doc(userId).collection("pages");
@@ -199,5 +200,65 @@ export const addComment = async (req, res) => {
         res.status(201).json({ message: "Comment added" });
     } catch (err) {
         res.status(500).json({ error: "Failed to add comment" });
+    }
+};
+//save page to profile
+export const savePageToUser = async (req, res) => {
+    const { sourceUserId, email, password, pageId } = req.body;
+
+    if (!email || !password || !pageId || !sourceUserId) {
+        return res.status(400).json({ error: "sourceUserId, email, password, and pageId are required" });
+    }
+
+    try {
+        // 🔑 Find target user in Firestore
+        const usersRef = admin.firestore().collection("users");
+        const userQuery = await usersRef.where("email", "==", email).limit(1).get();
+
+        if (userQuery.empty) {
+            return res.status(404).json({ error: "User not found with this email" });
+        }
+
+        const userDoc = userQuery.docs[0];
+        const userData = userDoc.data();
+
+        // 🔐 Verify password (if you stored hashedPassword)
+        
+        const passwordMatch = await bcrypt.compare(password, userData.password);
+
+        if (!passwordMatch) {
+            return res.status(401).json({ error: "Invalid password" });
+        }
+
+        const targetUserId = userDoc.id; // Firestore document ID for user
+
+        // 📖 Get original page from source user
+        const originalPageRef = getPagesRef(sourceUserId).doc(pageId);
+        const originalPageSnap = await originalPageRef.get();
+
+        if (!originalPageSnap.exists) {
+            return res.status(404).json({ error: "Original page not found" });
+        }
+
+        const originalPage = originalPageSnap.data();
+
+        // 💾 Save to target user's collection
+        const targetPagesRef = getPagesRef(targetUserId);
+        const newDocRef = await targetPagesRef.add({
+            ...originalPage,
+            user: targetUserId,
+            isFavorite: false,
+            isTrashed: false,
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: admin.firestore.FieldValue.serverTimestamp()
+        });
+
+        res.status(200).json({
+            message: "Page saved to user's profile successfully",
+            newPageId: newDocRef.id
+        });
+    } catch (error) {
+        console.error("Error saving page to user:", error);
+        res.status(500).json({ error: "Failed to save page to user" });
     }
 };

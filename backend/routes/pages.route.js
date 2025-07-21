@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPage, displayPages, updatePage, deletePage, deletePagePermt, getChildPages,displayfavPages,emptyTrash,getPageById,getComments,addComment} from "../controllers/pages.controller.js";
+import { createPage,savePageToUser, displayPages, updatePage, deletePage, deletePagePermt, getChildPages,displayfavPages,emptyTrash,getPageById,getComments,addComment} from "../controllers/pages.controller.js";
 import { protect } from '../middleware/verifyJWT.js'
 import { duplicatePage } from '../controllers/pages.controller.js';
 import { checkEditAccess } from '../middleware/checkAccess.js';
@@ -104,7 +104,7 @@ router.get("/pages/single/:userid/:pageId", protect, async (req, res) => {
 });
 
 router.post('/duplicate', duplicatePage);
-
+router.post('/saveToUser',savePageToUser)
 
 router.post('/:pageId/addEditor', async (req, res) => {
   const { pageId } = req.params;
