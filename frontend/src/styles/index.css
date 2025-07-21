@@ -26,3 +26,8 @@ button, input {
   box-shadow: none;       /* removes focus glow */
 }
 
+.ql-toolbar.ql-snow {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start;
+}
