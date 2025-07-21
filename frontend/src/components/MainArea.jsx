@@ -15,6 +15,7 @@ import { MessageCircle,Bookmark} from "lucide-react";
 import CommentBox from "./CommentBox";
 import GeminiChatbot from "./GeminiChatbot";
 import axios from "axios";
+import { toast } from 'react-hot-toast';
 
 const MainArea = () => {
   const { darkMode } = useTheme(); // Get dark mode
@@ -85,6 +86,7 @@ const MainArea = () => {
         },
       })
     );
+    toast.success("saved successfully")
   };
 
   const handleBookmarkSubmit =async (e) => {
