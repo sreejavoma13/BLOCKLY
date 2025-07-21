@@ -6,6 +6,7 @@ import { auth } from '../firebase';
 import { useTheme } from '../contexts/ThemeContext.jsx';
 import img4 from '../assets/Screenshot4.png'
 import { ChevronLeft } from "lucide-react";
+import { toast } from 'react-hot-toast';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -38,6 +39,7 @@ function Login() {
             navigate('/dashboard');
         } catch (err) {
             console.error(err);
+            toast.error("Failed to log in. Check your email and password.")
             setError("Failed to log in. Check your email and password.");
         }
     };

@@ -44,6 +44,7 @@ function Signup() {
             const data = await res.json();
             if (!res.ok) {
               console.error("Signup failed:", data.message);
+              toast.error("Uh-oh!!,Signup failed,please try again")
             } 
             console.log("✅ User created and JWT set by backend");
             localStorage.setItem("user", JSON.stringify(data.user));
@@ -51,6 +52,7 @@ function Signup() {
 
         } catch (err) {
             console.error(err);
+            toast.error("uh-oh!! signup failed")
             setError(err.message || "Signup failed");
         }
     };
