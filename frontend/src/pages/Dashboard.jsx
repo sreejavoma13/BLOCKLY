@@ -10,7 +10,7 @@ const Dashboard = () => {
   const { darkMode } = useTheme();
   const activePageId = useSelector(state => state.pages.activePageId);
   const navigate = useNavigate();
-  const [welcomeMessage, setWelcomeMessage] = useState(""); // 🔥 Store welcome message
+  const [welcomeMessage, setWelcomeMessage] = useState(""); //Store welcome message
 
   useEffect(() => {
     const userString = localStorage.getItem("user");
@@ -41,10 +41,10 @@ const Dashboard = () => {
           <Topbar />
           <div className="flex-1 overflow-auto">
             {activePageId ? (
-              // 📝 Show MainArea when page selected
+              // Show MainArea when page selected
               <MainArea />
             ) : (
-              // 📌 Show welcome by default
+              // Show welcome by default
               <div className="p-4 flex flex-col justify-center items-center">
                 <h1 className="text-2xl font-bold">{welcomeMessage}</h1>
                 <p>Select a page or create a new one to get started.</p>
