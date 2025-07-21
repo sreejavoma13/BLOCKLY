@@ -76,7 +76,7 @@ export const deletePagePermt = async (userId,pageId) => {
 
     // Recursively delete all child pages
     const deletePromises = subPagesSnapshot.docs.map(doc =>
-        deletePagePermt(doc.id) // Recursive call
+        deletePagePermt(userId,doc.id) // Recursive call
     );
 
     await Promise.all(deletePromises);

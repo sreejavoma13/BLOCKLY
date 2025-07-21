@@ -94,6 +94,22 @@ const Sidebar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Recursive function to render nested pages
+  const renderPages = (parentId = null, level = 0) => {
+    return pages
+      .filter((p) => p.parent === parentId && !p.isTrashed)
+      .map((page) => (
+        <div
+          key={page.id}
+          className={`min-w-max`}
+          style={{ paddingLeft: `${level * 16}px` }}// Indentation
+        >
+          <PageItem page={page} level={level} />
+          {renderPages(page.id, level + 1)} {/* Recursively render children */}
+        </div>
+      ));
+  };
+
   return (
     <div
       className={`${
@@ -116,7 +132,7 @@ const Sidebar = () => {
           <p className="font-bold text-lg ml-3">{!collapsed && user?.name}</p>
         </div>
 
-        {/* 🌟 Search Bar */}
+        {/*  Search Bar */}
         {!collapsed && (
           <div className="mb-3">
             <input
@@ -136,10 +152,11 @@ const Sidebar = () => {
         {/* Pages */}
         <div>
           {!collapsed && <h2 className="font-bold text-md mb-2">PAGES📄</h2>}
-          <div className="overflow-y-auto max-h-[calc(100vh-350px)] pr-2">
-            {!collapsed && filteredPages.map((page) => (
+          <div className="overflow-y-auto max-h-[calc(100vh-350px)] pr-2"style={{ whiteSpace: "nowrap" }}>
+            {/* {!collapsed && filteredPages.map((page) => (
               <PageItem key={page.id} page={page} level={0} />
-            ))}
+            ))} */}
+            {!collapsed && renderPages()}
           </div>
           <button
             className="flex items-center mt-2 text-blue-600"
