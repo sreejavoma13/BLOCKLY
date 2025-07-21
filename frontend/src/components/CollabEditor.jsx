@@ -313,11 +313,25 @@ export default function App() {
           <button
             type="submit"
             className={`w-full py-2 rounded text-white font-semibold transition-colors ${
-              darkMode ? "bg-blue-600 hover:bg-purple-500" : "bg-purple-500 hover:bg-purple-400"
+              darkMode ? "bg-purple-600 hover:bg-purple-500" : "bg-purple-500 hover:bg-purple-400"
             }`}
           >
             Start
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              navigator.clipboard.writeText("http://localhost:5173/collabeditor")
+                .then(() => alert("Link copied to clipboard!"))
+                .catch((err) => alert("Failed to copy link"));
+            }}
+            className={`w-full py-2 rounded text-white font-semibold transition-colors ${
+              darkMode ? "bg-purple-600 hover:bg-purple-500" : "bg-purple-500 hover:bg-purple-400"
+            }`}
+          >
+            COPY LINK
+          </button>
+
         </form>
       </div>
     </div>
