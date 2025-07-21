@@ -105,37 +105,25 @@ const MainArea = () => {
           {isEditable && (
             <MessageCircle
               size={20}
-              className="cursor-pointer"
+              className={`cursor-pointer mt-1`}
               onClick={() => setShowComments(true)}
             />
           )}
           {isEditable && (
             <Share
               size={20}
-              className="cursor-pointer"
+              className="cursor-pointer mt-1"
               onClick={() => setShowShare(true)}
             />
           )}
-          {isEditable && (
-            <button
-              onClick={() => navigate("/collabeditor")}
-              className={`flex items-center px-3 py-1 rounded hover:opacity-90 ${
-                darkMode
-                  ? "bg-orange-600 text-white"
-                  : "bg-orange-500 text-white"
-              }`}
-            >
-              <Share size={16} className="mr-1" />
-              Start New Collaboration
-            </button>
-          )}
+          
           {isEditable && (
             <button
               onClick={handleSave}
               className={`flex items-center px-3 py-1 rounded hover:opacity-90 ${
                 darkMode
-                  ? "bg-blue-600 text-white"
-                  : "bg-blue-500 text-white"
+                  ? "bg-purple-600 text-white"
+                  : "bg-purple-500 text-white"
               }`}
             >
               <Save size={16} className="mr-1" />

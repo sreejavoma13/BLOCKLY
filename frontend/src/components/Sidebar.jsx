@@ -208,7 +208,7 @@ const Sidebar = () => {
         <div className="relative">
           <button
             onClick={() => setShowTrash(!showTrash)}
-            className="flex text-gray-600 dark:text-gray-300"
+            className="flex text-gray-600 "
           >
             {!collapsed && <Trash2 size={20} className="mt-2" />}
           </button>

@@ -7,7 +7,7 @@ const ShareModal = ({ pageId, onClose }) => {
   const [links, setLinks] = useState({ viewLink: "", editLink: "" });
   const [copied, setCopied] = useState("");
   const [loading, setLoading] = useState(true);
-  const { darkMode, toggleDarkMode } = useTheme();
+  const { darkMode } = useTheme();
 
   useEffect(() => {
     const fetchLinks = async () => {

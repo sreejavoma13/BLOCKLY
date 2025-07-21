@@ -378,8 +378,8 @@ export default function App() {
     onClick={handleSave}
     className={`absolute top-4 right-4 px-4 py-2 rounded shadow ${
       darkMode
-        ? "bg-green-600 hover:bg-green-500 text-gray-100"
-        : "bg-green-500 hover:bg-green-400 text-white"
+        ? "bg-purple-600 hover:bg-purple-500 text-gray-100"
+        : "bg-purple-500 hover:bg-purple-400 text-white"
     }`}
   >
     💾 Save Page

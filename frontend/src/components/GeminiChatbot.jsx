@@ -44,7 +44,7 @@ export default function GeminiChatbot() {
       <button
         onClick={toggleChatbot}
         className={`fixed bottom-6 right-6 px-4 py-3 rounded-full shadow-lg transition-colors z-50
-          ${darkMode ? "bg-gray-800 text-white hover:bg-gray-700" : "bg-blue-600 text-white hover:bg-blue-700"}`}
+          ${darkMode ? "bg-gray-800 text-white hover:bg-gray-700 border border-gray-100" : "bg-purple-600 text-white border border-gray-800 hover:bg-purple-700"}`}
       >
         {isOpen ? "Close Chat" : "Chat with AI"}
       </button>
@@ -59,7 +59,7 @@ export default function GeminiChatbot() {
             className={`text-lg font-bold mb-2 
               ${darkMode ? "text-blue-400" : "text-blue-600"}`}
           >
-            Gemini AI
+            AI
           </h2>
 
           {/* AI Response */}
@@ -91,7 +91,7 @@ export default function GeminiChatbot() {
             <button
               onClick={askAI}
               className={`px-3 rounded-lg transition-colors
-                ${darkMode ? "bg-blue-500 text-white hover:bg-blue-600" : "bg-blue-600 text-white hover:bg-blue-700"}`}
+                ${darkMode ? "bg-purple-500 text-white hover:bg-purple-600 border border-gray-700 rounded-md" : "bg-purple-600 text-white hover:bg-purple-700 border border-gray-100 rounded-md"}`}
             >
               Ask
             </button>

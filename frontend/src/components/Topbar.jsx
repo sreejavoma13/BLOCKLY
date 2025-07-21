@@ -1,9 +1,12 @@
 import React from 'react';
-import { Bell, Star } from 'lucide-react';
+import { Bell, Star,Share } from 'lucide-react';
+import { Users } from "lucide-react";
 import { useTheme } from '../contexts/ThemeContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const Topbar = () => {
   const { darkMode, toggleDarkMode } = useTheme(); // get darkMode state
+  const navigate=useNavigate()
 
   return (
     <div
@@ -15,6 +18,17 @@ const Topbar = () => {
         Blockly
       </h1>
       <div className="flex space-x-4">
+         <button
+              onClick={() => navigate("/collabeditor")}
+              className={`flex items-center px-3 py-1 rounded hover:opacity-90 ${
+                darkMode
+                  ? "bg-purple-600 text-white"
+                  : "bg-purple-500 text-white"
+              }`}
+            >
+              <Users size={16} className="mr-1" />
+              Collab
+        </button>
         <button>
           <Bell size={20} />
         </button>

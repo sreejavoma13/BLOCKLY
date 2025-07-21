@@ -50,7 +50,7 @@ const PageItem = ({ page, level }) => {
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handleSave()}
                     onBlur={handleSave}
-                    className="border border-gray-700 rounded px-1 py-0.5 text-black"
+                    className="border border-gray-700 rounded px-1 py-0.5 "
                     autoFocus
                 />
                 <Check
