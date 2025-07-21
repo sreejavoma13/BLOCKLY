@@ -47,6 +47,7 @@ const Sidebar = () => {
     p.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+ 
   useEffect(() => {
     dispatch(fetchUserInfo());
   }, [dispatch]);
@@ -96,16 +97,26 @@ const Sidebar = () => {
 
   // Recursive function to render nested pages
   const renderPages = (parentId = null, level = 0) => {
+    const rootsToRender =
+      searchQuery.trim() === "" ? rootPages : filteredPages;
+
     return pages
-      .filter((p) => p.parent === parentId && !p.isTrashed)
+      .filter((p) => {
+        if (parentId === null) {
+          // For root level, show only filtered roots
+          return rootsToRender.some((root) => root.id === p.id);
+        }
+        // For children, show all non-trashed
+        return p.parent === parentId && !p.isTrashed;
+      })
       .map((page) => (
         <div
           key={page.id}
-          className={`min-w-max`}
-          style={{ paddingLeft: `${level * 16}px` }}// Indentation
+          className="min-w-max"
+          style={{ paddingLeft: `${level * 16}px` }} // Indentation
         >
           <PageItem page={page} level={level} />
-          {renderPages(page.id, level + 1)} {/* Recursively render children */}
+          {renderPages(page.id, level + 1)}
         </div>
       ));
   };
