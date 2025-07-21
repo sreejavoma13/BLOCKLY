@@ -17,7 +17,7 @@ cd your-repo-name
 ## For backend
 ```bash
 npm install
-npm index.js
+npm run dev
 ```
 
 
