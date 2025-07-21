@@ -43,10 +43,13 @@ export default function GeminiChatbot() {
       {/* Floating Chat Button */}
       <button
         onClick={toggleChatbot}
-        className={`fixed bottom-6 right-6 px-4 py-3 rounded-full shadow-lg transition-colors z-50
-          ${darkMode ? "bg-gray-800 text-white hover:bg-gray-700 border border-gray-100" : "bg-purple-600 text-white border border-gray-800 hover:bg-purple-700"}`}
+        className={`fixed bottom-6 right-6 w-10 h-10 flex items-center justify-center rounded-full shadow-lg transition-colors z-50
+          ${darkMode 
+            ? "bg-gray-800 text-white border border-gray-100 hover:bg-gray-700 " 
+            : "bg-purple-600 text-white hover:bg-purple-700 border border-black"
+          }`}
       >
-        {isOpen ? "Close Chat" : "Chat with AI"}
+        {isOpen ? "X" : "✨"}
       </button>
 
       {/* Chat Popup */}
@@ -59,7 +62,7 @@ export default function GeminiChatbot() {
             className={`text-lg font-bold mb-2 
               ${darkMode ? "text-blue-400" : "text-blue-600"}`}
           >
-            AI
+            <span className="text-lg">Hi,Iam your AI Bot🤖</span>
           </h2>
 
           {/* AI Response */}
